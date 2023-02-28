@@ -16,9 +16,7 @@ import lama.evaluation_metrics as metrics
 logger = logging.getLogger()
 logger.setLevel(logging.CRITICAL)
 import re
-# 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 mine
-# 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  ehsan's
-# os.environ["OPENAI_API_KEY"] = "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"
+# os.environ["OPENAI_API_KEY"] = "your key here"
 # openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
