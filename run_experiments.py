@@ -27,7 +27,7 @@
 from batch_eval_KB_completion import main as run_evaluation
 from batch_eval_KB_completion import load_file
 ########################
-########prompt_bm25以及dump to json file#####
+########prompt_bm25 and dump to json file#####
 ########################
 # from batch_eval_KB_completion_compare_prompt_bm25 import main as run_evaluation
 # from batch_eval_KB_completion_compare_prompt_bm25 import load_file
