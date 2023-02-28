@@ -23,11 +23,11 @@ wiki = load_dataset("wikipedia", "20220301.en",split="train",cache_dir="D:\OneDr
 wiki = wiki.remove_columns([col for col in wiki.column_names if col != "text"])
 bookcorpus = load_dataset("bookcorpus", split="train", cache_dir="D:\OneDrive\Desktop\BookCorpus")
 bert_dataset = concatenate_datasets([bookcorpus, wiki])
-es_client=elasticsearch.Elasticsearch('http://localhost:9200',http_auth=("elastic","rTmD2wr3a_-qxvQq+QRL"),timeout=30)
+es_client=elasticsearch.Elasticsearch('http://localhost:9200',http_auth=("elastic","your token here"),timeout=30)
 bert_dataset.load_elasticsearch_index('text',es_client=es_client,es_index_name="bert_dataset")
 num_samples=10
 
-#install了 networkx 和 seaborn
+#installed networkx and seaborn
 
 import os
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"   # see issue #152
