@@ -12,7 +12,7 @@ import sys
 from attention_drawer import *
 import threading
 ##7/14 new
-matplotlib.use('Agg') # 为了不show plot
+matplotlib.use('Agg') # to not show plot
 import matplotlib.pyplot as plt
 import json
 
@@ -48,7 +48,7 @@ def __print_top_k(value_max_probs, index_max_probs, vocab, mask_topk, index_list
     result = []
     msg = "\n| Top{} predictions\n".format(max_printouts)
     for i in range(mask_topk):
-        filtered_idx = index_max_probs[i].item()  #这个应该就是[20000]里面max prob的那个的index
+        filtered_idx = index_max_probs[i].item()  #this is the max prob's index from [20000]
 
         if index_list is not None:
             # the softmax layer has been filtered using the vocab_subset
@@ -94,7 +94,7 @@ def printAttention(vocab,_attentions_bert,_attentions_biobert,token_ids_list,dir
 
     #concantenate ##
     attentions_mat = np.add.reduceat(np.asarray(_attentions_bert)[:, :, :idxx, :idxx], final_list,axis=3)
-    attentions_mat = np.add.reduceat(attentions_mat, final_list, axis=2)  #确保还是eye
+    attentions_mat = np.add.reduceat(attentions_mat, final_list, axis=2)  #make sure it's still eye
     attentions_mat_bio = np.add.reduceat(np.asarray(_attentions_biobert)[:, :, :idxx, :idxx], final_list, axis=3)
     attentions_mat_bio = np.add.reduceat(attentions_mat_bio, final_list, axis=2)
 
@@ -103,12 +103,12 @@ def printAttention(vocab,_attentions_bert,_attentions_biobert,token_ids_list,dir
     plot_attention_heatmap(attentions_mat_bio.sum(axis=1) / attentions_mat_bio.shape[1], token_list, masked_indices_list,
                            t_positions=list(range(len(token_list))),bio="_bio",dir=dir)
 
-    # res_att_mat = attentions_mat.sum(axis=1) / attentions_mat.shape[1]  #12,14,14  res_att_mat[x层][y token]的sum是1
+    # res_att_mat = attentions_mat.sum(axis=1) / attentions_mat.shape[1]  #12,14,14  res_att_mat[x layer][y token]'s sum is 1
     # res_att_mat = res_att_mat + np.eye(res_att_mat.shape[1])[None, ...]
     # res_att_mat = res_att_mat / res_att_mat.sum(axis=-1)[..., None]
     # res_adj_mat, res_labels_to_index = get_adjmat(mat=res_att_mat, input_tokens=token_list)
     #
-    # res_att_mat_bio = attentions_mat_bio.sum(axis=1) / attentions_mat_bio.shape[1]  # 12,14,14  res_att_mat[x层][y token]的sum是1
+    # res_att_mat_bio = attentions_mat_bio.sum(axis=1) / attentions_mat_bio.shape[1]  # 12,14,14  res_att_mat[x layer][y token]'s sum is 1
     # res_att_mat_bio = res_att_mat_bio + np.eye(res_att_mat_bio.shape[1])[None, ...]
     # res_att_mat_bio = res_att_mat_bio / res_att_mat_bio.sum(axis=-1)[..., None]
     # res_adj_mat_bio, res_labels_to_index_bio = get_adjmat(mat=res_att_mat_bio, input_tokens=token_list)
