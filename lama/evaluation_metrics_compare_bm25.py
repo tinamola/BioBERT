@@ -12,7 +12,7 @@ import sys
 from attention_drawer import *
 import threading
 ##7/14 new
-matplotlib.use('Agg') # 为了不show plot
+matplotlib.use('Agg') # not show plot
 import matplotlib.pyplot as plt
 import json
 from itertools import compress
@@ -48,8 +48,7 @@ def __print_top_k(value_max_probs, index_max_probs, vocab, mask_topk, index_list
     result = []
     msg = "\n| Top{} predictions\n".format(max_printouts)
     for i in range(mask_topk):
-        filtered_idx = index_max_probs[i].item()  #这个应该就是[20000]里面max prob的那个的index
-
+        filtered_idx = index_max_probs[i].item()  #this is the maximum prob's index out of the [20000]
         if index_list is not None:
             # the softmax layer has been filtered using the vocab_subset
             # the original idx should be retrieved
@@ -88,7 +87,7 @@ def printAttention(vocab,_attentions_bert,_attentions_biobert,token_ids_list,tok
         if idxx==len(lst)-1:  #没有[pad]的sentence
             idxx+=1
         for ex in add_list:
-            if len(ex) == 1 and ex[0][0] != final_list[-1]:  #最后一个不需要进parse list
+            if len(ex) == 1 and ex[0][0] != final_list[-1]:  #last one no need to be in parse list
                 final_list.append(ex[0][0])
             elif len(ex) > 1:
                 if ex[0][0] != final_list[-1]:
@@ -100,7 +99,7 @@ def printAttention(vocab,_attentions_bert,_attentions_biobert,token_ids_list,tok
     token_list_final[1]=['[CLS]', 'London', 'Stock', 'Exchange', 'was', 'founded', 'in', '[MASK]', '.', '[SEP]', '£$€', 'is', 'a', 'nickname', 'for', 'the', 'following', ':', 'School', 'of', 'Economics', ',', 'a', 'public', 'research', 'university', 'located', 'in', ',', 'England', 'Stock', 'Exchange', ',', 'a', 'stock', 'exchange', 'located', 'in', 'the', 'City', 'of', ',', 'England', '[SEP]']
     #concantenate ##
     attentions_mat = np.add.reduceat(np.asarray(_attentions_bert)[:, :, :idxx, :idxx], final_list_final[0],axis=3)
-    attentions_mat = np.add.reduceat(attentions_mat, final_list_final[0], axis=2)  #确保还是eye
+    attentions_mat = np.add.reduceat(attentions_mat, final_list_final[0], axis=2)  #make sure its still eye
     attentions_mat_bio = np.add.reduceat(np.asarray(_attentions_biobert)[:, :, :idxx, :idxx], final_list_final[1], axis=3)
     attentions_mat_bio = np.add.reduceat(attentions_mat_bio, final_list_final[1], axis=2)
 
@@ -110,12 +109,12 @@ def printAttention(vocab,_attentions_bert,_attentions_biobert,token_ids_list,tok
     plot_attention_heatmap(attentions_mat_bio.sum(axis=1) / attentions_mat_bio.shape[1], token_list_final[1], masked_indices_list,
                            t_positions=list(range(len(token_list_final[1]))),bio="_bm25",dir=dir,query_len=len(token_list_final[0]))
 
-    # res_att_mat = attentions_mat.sum(axis=1) / attentions_mat.shape[1]  #12,14,14  res_att_mat[x层][y token]的sum是1
+    # res_att_mat = attentions_mat.sum(axis=1) / attentions_mat.shape[1]  #12,14,14  res_att_mat[x layer][y token]'s sum is 1
     # res_att_mat = res_att_mat + np.eye(res_att_mat.shape[1])[None, ...]
     # res_att_mat = res_att_mat / res_att_mat.sum(axis=-1)[..., None]
     # res_adj_mat, res_labels_to_index = get_adjmat(mat=res_att_mat, input_tokens=token_list)
     #
-    # res_att_mat_bio = attentions_mat_bio.sum(axis=1) / attentions_mat_bio.shape[1]  # 12,14,14  res_att_mat[x层][y token]的sum是1
+    # res_att_mat_bio = attentions_mat_bio.sum(axis=1) / attentions_mat_bio.shape[1]  # 12,14,14  res_att_mat[x layer][y token]'s sum is 1
     # res_att_mat_bio = res_att_mat_bio + np.eye(res_att_mat_bio.shape[1])[None, ...]
     # res_att_mat_bio = res_att_mat_bio / res_att_mat_bio.sum(axis=-1)[..., None]
     # res_adj_mat_bio, res_labels_to_index_bio = get_adjmat(mat=res_att_mat_bio, input_tokens=token_list)
