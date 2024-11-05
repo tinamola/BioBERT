@@ -1,1 +1,2 @@
-# FIT4441BioBERT
+# FIT4441 BioBERT
+This project explores methods to reduce catastrophic forgetting in pre-trained language models during domain-specific fine-tuning. We studied BERT and its biomedical variant, BioBERT, using the LAMA benchmark to measure retention of factual knowledge. Our approach leverages external context, retrieved via BM25 and generated with GPT-3, to enhance the model's recall of knowledge without updating its weights. The results show a notable improvement in mitigating forgetting across several categories, highlighting the potential of retrieval-based context augmentation​.
